@@ -1,25 +1,25 @@
-Submit_Button = document.getElementById("Submit");
+const submitButton = document.getElementById("Submit");
 
 function kelvinToFC(Kelvin) {
-	let Fahrenheit = Kelvin * (9/5) - 459.67;
-	let Celsius = Kelvin - 273.15;
-	let result = [{'F':Fahrenheit.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
+	const Fahrenheit = Kelvin * (9/5) - 459.67;
+	const Celsius = Kelvin - 273.15;
+	const result = [{'F':Fahrenheit.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
 
 	return result;
 }
 
 function fahrenheitToKC(Fahrenheit) {
-	let Kelvin = (Fahrenheit - 32) * (5/9) + 273.15;
-	let Celsius = (Fahrenheit - 32) * (5/9);
-	let result = [{'K':Kelvin.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
+	const Kelvin = (Fahrenheit - 32) * (5/9) + 273.15;
+	const Celsius = (Fahrenheit - 32) * (5/9);
+	const result = [{'K':Kelvin.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
 
 	return result
 }
 
 function celsiusToKF(Celsius) {
-	let Kelvin = Celsius + 273.15	;
-	let Fahrenheit = Celsius * 9/5 + 32;
-	let result = [{'K':Kelvin.toPrecision(5)}, {'F': Fahrenheit.toPrecision(5)}];
+	const Kelvin = Celsius + 273.15	;
+	const Fahrenheit = Celsius * 9/5 + 32;
+	const result = [{'K':Kelvin.toPrecision(5)}, {'F': Fahrenheit.toPrecision(5)}];
 
 	return result
 }
@@ -31,10 +31,10 @@ const MAP_CONVERTOR = {
 				  	  }
 
 function main() {
-	let Val = document.getElementById("Input").value;
+	const Val = document.getElementById("Input").value;
 	Val.trim();
 
-	let digit = parseFloat(Val.slice(0, -1));
+	const digit = parseFloat(Val.slice(0, -1));
 	const symbol = (Val[Val.length - 1]).toUpperCase();
 
 
@@ -44,4 +44,4 @@ function main() {
 	alert(json);
 }
 
-Submit_Button.addEventListener("click", main)
+submitButton.addEventListener("click", main)
