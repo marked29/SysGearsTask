@@ -1,6 +1,6 @@
 Submit_Button = document.getElementById("Submit");
 
-function KelvinToFC(Kelvin) {
+function kelvinToFC(Kelvin) {
 	var Fahrenheit = Kelvin * (9/5) - 459.67;
 	var Celsius = Kelvin - 273.15;
 	var result = [{'F':Fahrenheit.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
@@ -11,7 +11,7 @@ function KelvinToFC(Kelvin) {
 
 }
 
-function FahrenheitToKC(Fahrenheit) {
+function fahrenheitToKC(Fahrenheit) {
 	var Kelvin = (Fahrenheit - 32) * (5/9) + 273.15;
 	var Celsius = (Fahrenheit - 32) * (5/9);
 	var result = [{'K':Kelvin.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
@@ -21,7 +21,7 @@ function FahrenheitToKC(Fahrenheit) {
 	alert(json);
 }
 
-function CelsiusToKF(Celsius) {
+function celsiusToKF(Celsius) {
 	var Kelvin = Celsius + 273.15	;
 	var Fahrenheit = Celsius * 9/5 + 32;
 	var result = [{'K':Kelvin.toPrecision(5)}, {'F': Fahrenheit.toPrecision(5)}];
@@ -39,15 +39,15 @@ Convertor = function() {
 
 	switch (symbol) {
 		case 'K':
-			KelvinToFC(digit);
+			kelvinToFC(digit);
 			break;
 		
 		case 'F':
-			FahrenheitToKC(digit);
+			fahrenheitToKC(digit);
 			break;
 		
 		case 'C':
-			CelsiusToKF(digit);
+			celsiusToKF(digit);
 			break;
 		
 		default:
