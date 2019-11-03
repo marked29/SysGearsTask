@@ -1,42 +1,41 @@
-const submitButton = document.getElementById("Submit");
+const submitButton = document.getElementById("submit");
 
-function kelvinToFC(Kelvin) {
-	const Fahrenheit = Kelvin * (9/5) - 459.67;
-	const Celsius = Kelvin - 273.15;
-	const result = [{'F':Fahrenheit.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
+function kelvinToFC(kelvin) {
+	const fahrenheit = kelvin * (9/5) - 459.67;
+	const celsius = kelvin - 273.15;
+	const result = [{'F':fahrenheit.toPrecision(5)}, {'C': celsius.toPrecision(5)}];
 
 	return result;
 }
 
-function fahrenheitToKC(Fahrenheit) {
-	const Kelvin = (Fahrenheit - 32) * (5/9) + 273.15;
-	const Celsius = (Fahrenheit - 32) * (5/9);
-	const result = [{'K':Kelvin.toPrecision(5)}, {'C': Celsius.toPrecision(5)}];
+function fahrenheitToKC(fahrenheit) {
+	const kelvin = (fahrenheit - 32) * (5/9) + 273.15;
+	const celsius = (fahrenheit - 32) * (5/9);
+	const result = [{'K':kelvin.toPrecision(5)}, {'C': celsius.toPrecision(5)}];
 
 	return result
 }
 
-function celsiusToKF(Celsius) {
-	const Kelvin = Celsius + 273.15	;
-	const Fahrenheit = Celsius * 9/5 + 32;
-	const result = [{'K':Kelvin.toPrecision(5)}, {'F': Fahrenheit.toPrecision(5)}];
+function celsiusToKF(celsius) {
+	const kelvin = celsius + 273.15	;
+	const fahrenheit = celsius * 9/5 + 32;
+	const result = [{'K':kelvin.toPrecision(5)}, {'F': fahrenheit.toPrecision(5)}];
 
 	return result
 }
 
 const MAP_CONVERTOR = { 
-						'K': kelvinToFC , 
+						'K': kelvinToFC ,
 						'F': fahrenheitToKC ,
-						'C': celsiusToKF	
-				  	  }
+						'C': celsiusToKF
+					}
 
 function main() {
-	const Val = document.getElementById("Input").value;
-	Val.trim();
+	const val = document.getElementById("input").value;
+	val.trim();
 
-	const digit = parseFloat(Val.slice(0, -1));
-	const symbol = (Val[Val.length - 1]).toUpperCase();
-
+	const digit = parseFloat(val.slice(0, -1));
+	const symbol = (val[val.length - 1]).toUpperCase();
 
 	const result = MAP_CONVERTOR[symbol](digit) || "Invalid argument";
 	const json = JSON.stringify(result);
