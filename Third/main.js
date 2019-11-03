@@ -1,8 +1,8 @@
 submitButton = document.getElementById("submit");
 
-var distance = 20;
-var first_player_probability = 0;
-var second_player_probability = 0;
+let distance = 20;
+let first_player_probability = 0;
+let second_player_probability = 0;
 
 
 function setUp() {
@@ -29,12 +29,12 @@ function main() {
 		return;
 	}
 
-	var playersEstimationList = [
+	const playersEstimationList = [
 									estimateProbabilityPerStep(first_player_probability, distance),
 									estimateProbabilityPerStep(second_player_probability, distance)
 								];
 
-	var playerNumber = parseInt(prompt("Pick players number (1-2): "));
+	const playerNumber = parseInt(prompt("Pick players number (1-2): "));
 
 	if (playerNumber == 1) {
 		for (var i = 0; i <= distance - 1; i++) {

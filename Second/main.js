@@ -1,7 +1,7 @@
 submitButton = document.getElementById("submit");
 
-var stepString = "";
-var steps = 0;
+let stepString = "";
+let steps = 0;
 
 function hanoiTowers(quantity, from, to, buffer) {								
 	if (quantity != 0) {
@@ -18,14 +18,14 @@ function reset() {
 }
 
 function updateHtml(displayed_information) {
-	let markup = document.getElementById("information");
+	const markup = document.getElementById("information");
 	
 	if (markup) {
-		let informationDiv = document.getElementById("information");
+		const informationDiv = document.getElementById("information");
 		informationDiv.innerHTML = displayed_information;
 		reset();
 	} else {
-		let wrapper = document.createElement("div");
+		const wrapper = document.createElement("div");
 		wrapper.id = "information";
 		wrapper.innerHTML = displayed_information;
    		document.body.appendChild(wrapper);
@@ -34,7 +34,7 @@ function updateHtml(displayed_information) {
 }
 
 function main() {
-	let val = document.getElementById("input").value.trim();
+	const val = document.getElementById("input").value.trim();
 
 	const digit = parseFloat(val);
 	if (digit > 8 || digit < 3) {
