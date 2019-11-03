@@ -31,8 +31,7 @@ const MAP_CONVERTOR = {
 					}
 
 function main() {
-	const val = document.getElementById("input").value;
-	val.trim();
+	const val = document.getElementById("input").value.trim();
 
 	const digit = parseFloat(val.slice(0, -1));
 	const symbol = (val[val.length - 1]).toUpperCase();

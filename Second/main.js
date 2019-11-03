@@ -35,8 +35,7 @@ function updateHtml(displayed_information) {
 }
 
 function main() {
-	let val = document.getElementById("input").value;
-	val.trim();
+	let val = document.getElementById("input").value.trim();
 
 	const digit = parseFloat(val);
 	if (digit > 8 || digit < 3) {
