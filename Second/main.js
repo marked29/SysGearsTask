@@ -3,12 +3,12 @@ submitButton = document.getElementById("submit");
 var stepString = "";
 var steps = 0;
 
-function hanoiTowers(quantity, from, to, buf_peg) {								
+function hanoiTowers(quantity, from, to, buffer) {								
 	if (quantity != 0) {
-		hanoiTowers(quantity-1, from, buf_peg, to);
+		hanoiTowers(quantity-1, from, buffer, to);
 		steps++;
 		stepString += "#" + quantity + " " + from + " -> " + to + "<br/>";
-		hanoiTowers(quantity-1, buf_peg, to, from);
+		hanoiTowers(quantity-1, buffer, to, from);
 	}
 }
 
