@@ -1,61 +1,52 @@
-Submit_Button = document.getElementById("Submit");
+submitButton = document.getElementById("submit");
 
 var stepString = "";
 var steps = 0;
 
-function hanoiTowers(quantity, from, to, buf_peg)
-{								
-	if (quantity != 0)
-	{
+function hanoiTowers(quantity, from, to, buf_peg) {								
+	if (quantity != 0) {
 		hanoiTowers(quantity-1, from, buf_peg, to);
 		steps++;
-		stepString += "#"+quantity + " " + from + " -> " + to + "<br/>";
-
+		stepString += "#" + quantity + " " + from + " -> " + to + "<br/>";
 		hanoiTowers(quantity-1, buf_peg, to, from);
 	}
 }
 
-
-function Reset() 
-{
-	alert("Steps: " + steps);
+function reset() {
 	steps = 0;
 	stepString = "";
 }
 
-
-function updateHtml(some_info) 
-{
-	var markup = document.getElementById("Information");
+function updateHtml(displayed_information) {
+	let markup = document.getElementById("Information");
 	
 	if (markup) {
-		var informationDiv = document.getElementById("Information");
+		let informationDiv = document.getElementById("Information");
 		informationDiv.innerHTML = "";
-		informationDiv.innerHTML = some_info;
-		Reset();
-	}	
-	else {
-		var wrapper = document.createElement("div");
+		informationDiv.innerHTML = displayed_information;
+		reset();
+	} else {
+		let wrapper = document.createElement("div");
 		wrapper.id = "Information";
-		wrapper.innerHTML = some_info;
+		wrapper.innerHTML = displayed_information;
    		document.body.appendChild(wrapper);
-		Reset();	
+		reset();	
 	}
 }
 
-Hanoi = function() {
-	var Val = document.getElementById("Input").value;
-	Val.trim();
+function main() {
+	let val = document.getElementById("input").value;
+	val.trim();
 
-	var digit = parseFloat(Val);
-	if (digit > 8 || digit < 3) 
-	{
+	const digit = parseFloat(val);
+	if (digit > 8 || digit < 3) {
 		alert("Invalid value");
 		return;
 	}
+
 	hanoiTowers(digit, "slot_a", "slot_c", "slot_b");
+	alert(steps);
 	updateHtml(stepString);
 }
 
-
-Submit_Button.addEventListener("click",Hanoi)
+submitButton.addEventListener("click", main)
