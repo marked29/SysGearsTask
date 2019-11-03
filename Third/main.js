@@ -1,23 +1,21 @@
-Submit_Button = document.getElementById("Submit");
+submitButton = document.getElementById("submit");
 
 var distance = 20;
 var first_player_probability = 0;
 var second_player_probability = 0;
 
 
-function setUp() 
-{
+function setUp() {
 	first_player_probability = parseFloat(prompt("Set first player probability: "));	
 	second_player_probability = parseFloat(prompt("Set second player probability: "));
 }
 
-function estimateProbabilityPerStep(currentProbability, steps)
-{
+function estimateProbabilityPerStep(currentProbability, steps) {
 	return (1 - currentProbability) / steps;
 }
 
 
-Main = function() {
+function main() {
 	
 	setUp();
 
@@ -38,42 +36,28 @@ Main = function() {
 
 	var playerNumber = parseInt(prompt("Pick players number (1-2): "));
 
-	if (playerNumber == 1) 
-	{
-		for (var i = 0; i <= distance - 1; i++) 
-		{
-            if ((playersEstimationList[0] * i + first_player_probability) > (1 - playersEstimationList[1] * (i + 1) - second_player_probability)) 
-            {
+	if (playerNumber == 1) {
+		for (var i = 0; i <= distance - 1; i++) {
+            if ((playersEstimationList[0] * i + first_player_probability) > (1 - playersEstimationList[1] * (i + 1) - second_player_probability)) {
 	            alert("The optimal shot range is:" + i);
 	            break;
             }
         }
-	}
-	else if (playerNumber == 2) 
-	{
-		if( playersEstimationList[1] > 1 - playersEstimationList[0] - first_player_probability) 
-		{
+	} else if (playerNumber == 2) {
+		if (playersEstimationList[1] > 1 - playersEstimationList[0] - first_player_probability) {
                 distance--;
                 alert("The optimal shot range is: " + distance);
-        }
-        else
-        {
-        	for (var i = 0; i <= distance - 2; i++) 
-        	{
-                if ((playersEstimationList[0] * i) + first_player_probability > (1 - playersEstimationList[1] * (i + 2) - second_player_probability)) 
-                {
+        } else {
+        	for (var i = 0; i <= distance - 2; i++) {
+                if ((playersEstimationList[0] * i) + first_player_probability > (1 - playersEstimationList[1] * (i + 2) - second_player_probability)) {
                     alert("The optimal shot range is: " + i);
                     break;
               	}
             }
         }
-	}
-	else 
-	{
+	} else {
 		alert("Invalid player number");
 	}
-
-
 }
 
-Submit_Button.addEventListener("click",Main)
+submitButton.addEventListener("click", main);
