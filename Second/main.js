@@ -18,16 +18,15 @@ function reset() {
 }
 
 function updateHtml(displayed_information) {
-	let markup = document.getElementById("Information");
+	let markup = document.getElementById("information");
 	
 	if (markup) {
-		let informationDiv = document.getElementById("Information");
-		informationDiv.innerHTML = "";
+		let informationDiv = document.getElementById("information");
 		informationDiv.innerHTML = displayed_information;
 		reset();
 	} else {
 		let wrapper = document.createElement("div");
-		wrapper.id = "Information";
+		wrapper.id = "information";
 		wrapper.innerHTML = displayed_information;
    		document.body.appendChild(wrapper);
 		reset();	
