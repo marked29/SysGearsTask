@@ -349,7 +349,6 @@ class Randomizer {
 }
 
 const randomizer = new Randomizer();
-// TODO: using prompt to collect the data
 const tenTaxesOnRoad = randomizer.getRandomRoadWithTenTaxes();
 const travelPaymentStrategyGenerator = new TravelPaymentStrategyGenerator(tenTaxesOnRoad);
 
