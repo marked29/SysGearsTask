@@ -2,7 +2,7 @@ class TravelPaymentStrategyGenerator {
     constructor() {
         this.randomizer = new Randomizer();
         
-        this._errorMessage = 'Sorry, the data is invalid.';
+        this.errorMessage = 'Sorry, the data is invalid.';
         
         this.existingCoins = [1,2,3,4,5,6,7,8,9,10];
         this.numberOfDrivers = 10;
@@ -14,30 +14,30 @@ class TravelPaymentStrategyGenerator {
     generateTravelPaymentStrategy(tenTaxesOnRoad) {
         this.tenTaxesOnRoad = tenTaxesOnRoad;
         
-        if (!this._isInputDataValid(tenTaxesOnRoad)) {
-            console.log(this._errorMessage);
+        if (!this.isInputDataValid(tenTaxesOnRoad)) {
+            console.log(this.errorMessage);
             
             return {success: false};
         }
         
         while(!this.bestStrategyFound) {
-            let nextGeneration = this._removeWorseDriversInGeneration();
+            let nextGeneration = this.removeWorseDriversInGeneration();
             
-            this.drivers = this._reproduction(nextGeneration);
+            this.drivers = this.reproduction(nextGeneration);
             
-            if (this._checkingArrayOnAllSameElements(this.drivers)) {
-                this._changeAHalfDriversOnRandom();
+            if (this.checkingArrayOnAllSameElements(this.drivers)) {
+                this.changeAHalfDriversOnRandom();
             }
             
-            let probForNewGeneration = this._skipAllDriversOverFitnessFunction();
+            let probForNewGeneration = this.skipAllDriversOverFitnessFunction();
             
-            this.bestStrategyFound = this._lookingForBestDecision(probForNewGeneration);
+            this.bestStrategyFound = this.lookingForBestDecision(probForNewGeneration);
         }
         
         return this.bestStrategyFound;
     }
     
-    _isInputDataValid(tenTaxesOnRoad) {
+    isInputDataValid(tenTaxesOnRoad) {
         if (typeof tenTaxesOnRoad !== 'object') {
             return false;
         }
@@ -55,7 +55,7 @@ class TravelPaymentStrategyGenerator {
         return isDataValid;
     }
     
-    _generateNewDriverWithNulls(parent1, parent2) {
+    generateNewDriverWithNulls(parent1, parent2) {
         const newDriverWithNulls = [];
         
         // Create the most profitable set of coins
@@ -83,7 +83,7 @@ class TravelPaymentStrategyGenerator {
         return newDriverWithNulls;
     }
     
-    _findNotUsedCoins(newDriverWithNulls) {
+    findNotUsedCoins(newDriverWithNulls) {
         const notUsedCoins = [];
         
         this.existingCoins.forEach((coin) => {
@@ -99,10 +99,10 @@ class TravelPaymentStrategyGenerator {
         return notUsedCoins;
     }
     
-    _getNewDriverFromParents(parent1, parent2) {
+    getNewDriverFromParents(parent1, parent2) {
         //create  child wich has nulls insted coins
-        const newDriverFromParents = this._generateNewDriverWithNulls(parent1,parent2);
-        const arrOfNotUsedCoins = this._findNotUsedCoins(newDriverFromParents);
+        const newDriverFromParents = this.generateNewDriverWithNulls(parent1,parent2);
+        const arrOfNotUsedCoins = this.findNotUsedCoins(newDriverFromParents);
         
         newDriverFromParents.forEach((item, i) => {
             if(item === 0){
@@ -114,7 +114,7 @@ class TravelPaymentStrategyGenerator {
         return newDriverFromParents;
     }
     
-    _findBestDutyForDriver(driver) {
+    findBestDutyForDriver(driver) {
         let Debt = 0;
         let indexArr;
         let indexRoad;
@@ -144,7 +144,7 @@ class TravelPaymentStrategyGenerator {
         return Debt;
     }
     
-    _dutyPaiedDriverOnRoad(driver) {
+    dutyPaiedDriverOnRoad(driver) {
         let facticalDebt = 0;
 
         // Calculating factical Debt
@@ -159,27 +159,27 @@ class TravelPaymentStrategyGenerator {
         return facticalDebt;
     }
     
-    _fitness(driver) {
+    fitness(driver) {
         // Getting value that shows drivers adaptation 
-        let adaptation = this._findBestDutyForDriver(driver, this.tenTaxesOnRoad) / this._dutyPaiedDriverOnRoad(driver) ;
+        let adaptation = this.findBestDutyForDriver(driver, this.tenTaxesOnRoad) / this.dutyPaiedDriverOnRoad(driver) ;
         
         return adaptation;
     }
     
-    _skipAllDriversOverFitnessFunction() {
+    skipAllDriversOverFitnessFunction() {
         let arrayOfSurvivorProbability = [];
         
         // Getting array that shows probability
         this.drivers.forEach((driver) => {
-            arrayOfSurvivorProbability.push(this._fitness(driver));
+            arrayOfSurvivorProbability.push(this.fitness(driver));
         });
         
         return arrayOfSurvivorProbability;
     }
     
-    _removeWorseDriversInGeneration() {
+    removeWorseDriversInGeneration() {
 
-        const probabllytesOfSurviviorOfDrivers = this._skipAllDriversOverFitnessFunction();
+        const probabllytesOfSurviviorOfDrivers = this.skipAllDriversOverFitnessFunction();
         let numberDriversToRemove = 2;
         
         // Finding the least probability of survival and removing them
@@ -196,7 +196,7 @@ class TravelPaymentStrategyGenerator {
         return this.drivers;
     }
     
-    _choseParents() {
+    choseParents() {
         const parentPairs = [];
         let leftNumberOfDrivers = this.numberOfDrivers;
         
@@ -220,20 +220,20 @@ class TravelPaymentStrategyGenerator {
         return parentPairs;
     }
     
-    _reproduction(nextGeneration) {
-        const parentPairs = this._choseParents();
+    reproduction(nextGeneration) {
+        const parentPairs = this.choseParents();
         const newGenerationOfChildren = [];
         
         parentPairs.forEach(parentPair => {
             let pair = [parentPair.a, parentPair.b];
             
-            newGenerationOfChildren.push(this._getNewDriverFromParents(nextGeneration[pair[0]], nextGeneration[pair[1]]));
+            newGenerationOfChildren.push(this.getNewDriverFromParents(nextGeneration[pair[0]], nextGeneration[pair[1]]));
         });
         
         return newGenerationOfChildren;
     }
     
-    _lookingForBestDecision(probForNewGeneration) {
+    lookingForBestDecision(probForNewGeneration) {
         let result = false;
         
         probForNewGeneration.forEach((item,i)=>{
@@ -245,7 +245,7 @@ class TravelPaymentStrategyGenerator {
         return result;
     }
     
-    _checkingArrayOnAllSameElements () {
+    checkingArrayOnAllSameElements () {
         let quantityOfRepeatableDrivers = 0;
         let hasArrayAllSameElements = false;
         
@@ -262,7 +262,7 @@ class TravelPaymentStrategyGenerator {
         return hasArrayAllSameElements;
     }
     
-    _changeAHalfDriversOnRandom() {
+    changeAHalfDriversOnRandom() {
         for (let i = 0; i < this.numberOfDrivers / 2; i++ ) {
             this.drivers[i] = this.randomizer.getRandomDriver();
         }
@@ -343,7 +343,7 @@ class Randomizer {
 }
 
 const randomizer = new Randomizer();
-// Must be done using prompt to collect the data
+// TODO: using prompt to collect the data
 const tenTaxesOnRoad = randomizer.getRandomRoadWithTenTaxes();
 const travelPaymentStrategyGenerator = new TravelPaymentStrategyGenerator(tenTaxesOnRoad);
 
