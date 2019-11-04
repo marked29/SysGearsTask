@@ -75,6 +75,7 @@ class TravelPaymentStrategyGenerator {
             }
             
             // Checking for duplicate coins
+            // if coins have already been added we give coin with value of  0 to driver 
             let addedCoin = newDriverWithNulls.find(coin => coin === newCoin);
             
             newDriverWithNulls.push(addedCoin ? 0 : newCoin);
@@ -100,10 +101,14 @@ class TravelPaymentStrategyGenerator {
     }
     
     getNewDriverFromParents(parent1, parent2) {
-        //create  child wich has nulls insted coins
+        //we take two parents and look up for the best payment strategies from their 'experience'
+        //and pick coins which they used to a new child. 
+        //if child gets duplicate coins we replace them with nulls
         const newDriverFromParents = this.generateNewDriverWithNulls(parent1,parent2);
+        //After we detect which coins were not used
         const arrOfNotUsedCoins = this.findNotUsedCoins(newDriverFromParents);
         
+        //Replace zero-coins with unused coins
         newDriverFromParents.forEach((item, i) => {
             if(item === 0){
                 newDriverFromParents[i] = arrOfNotUsedCoins[0];
@@ -114,7 +119,7 @@ class TravelPaymentStrategyGenerator {
         return newDriverFromParents;
     }
     
-    findBestDutyForDriver(driver) {
+    bestCommissionPaymentStrategy(driver) {
         let Debt = 0;
         let indexArr;
         let indexRoad;
@@ -144,7 +149,7 @@ class TravelPaymentStrategyGenerator {
         return Debt;
     }
     
-    dutyPaiedDriverOnRoad(driver) {
+    factCommissionPaidByDriver(driver) {
         let facticalDebt = 0;
 
         // Calculating factical Debt
@@ -161,7 +166,7 @@ class TravelPaymentStrategyGenerator {
     
     fitness(driver) {
         // Getting value that shows drivers adaptation 
-        let adaptation = this.findBestDutyForDriver(driver, this.tenTaxesOnRoad) / this.dutyPaiedDriverOnRoad(driver) ;
+        let adaptation = this.bestCommissionPaymentStrategy(driver, this.tenTaxesOnRoad) / this.factCommissionPaidByDriver(driver);
         
         return adaptation;
     }
@@ -196,10 +201,11 @@ class TravelPaymentStrategyGenerator {
         return this.drivers;
     }
     
-    choseParents() {
+    createPairsOfParents() {
         const parentPairs = [];
         let leftNumberOfDrivers = this.numberOfDrivers;
         
+        // Different unique random pairs of drivers generation are created 
         while (leftNumberOfDrivers) {
             let pair = {
                 a: Math.floor(Math.random() * (this.numberOfDrivers - this.numberOfDrivers / 5) + 0),
@@ -221,7 +227,7 @@ class TravelPaymentStrategyGenerator {
     }
     
     reproduction(nextGeneration) {
-        const parentPairs = this.choseParents();
+        const parentPairs = this.createPairsOfParents();
         const newGenerationOfChildren = [];
         
         parentPairs.forEach(parentPair => {
@@ -347,4 +353,4 @@ const randomizer = new Randomizer();
 const tenTaxesOnRoad = randomizer.getRandomRoadWithTenTaxes();
 const travelPaymentStrategyGenerator = new TravelPaymentStrategyGenerator(tenTaxesOnRoad);
 
-console.log(travelPaymentStrategyGenerator.generateTravelPaymentStrategy(tenTaxesOnRoad));
+alert(travelPaymentStrategyGenerator.generateTravelPaymentStrategy(tenTaxesOnRoad));
